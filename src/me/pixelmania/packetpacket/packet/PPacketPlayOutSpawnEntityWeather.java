@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class PPacketPlayInAdvancements implements PPacket {
+public class PPacketPlayOutSpawnEntityWeather implements PPacket {
 	private static Map< PacketListener, JavaPlugin > packetListeners = new HashMap< PacketListener, JavaPlugin >();
 	
 	public static PacketListener[] manualGetPacketListeners() {
