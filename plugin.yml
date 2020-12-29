@@ -1,6 +1,6 @@
-main: me.pixelmania.packetpacket.Core
+main: dev.pixelmania.packetpacket.Core
 name: PacketPacket
-version: 1.0a
+version: 1.0c
 
 api-version: 1.16
 
