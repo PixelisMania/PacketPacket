@@ -108,11 +108,10 @@ public class HandlingPipeline implements Listener {
 		try {
 			String[] className = packet.getClass().getName().toString().split("\\.");
 			String[] nested = className[ className.length - 1 ].split("\\$");
-			String packetName = "me.pixelmania.packetpacket.packet.P" + nested[ nested.length - 1 ];
+			String packetName = "dev.pixelmania.packetpacket.packet.P" + nested[ nested.length - 1 ];
 			PPacket pPacket = ( PPacket ) Class.forName( packetName ).newInstance();
 			pPacket.a( packet, player );
 			for ( PacketListener packetListener : pPacket.getPacketListeners() ) {
-				System.out.println("method first " + pPacket.getPacketListeners().length);
 				List< Map< Method, Boolean > > methodLists = Arrays.asList( 
 						new HashMap< Method, Boolean >(), new HashMap< Method, Boolean >(), new HashMap< Method, Boolean >(), 
 						new HashMap< Method, Boolean >(), new HashMap< Method, Boolean >(), new HashMap< Method, Boolean >() );
@@ -152,12 +151,10 @@ public class HandlingPipeline implements Listener {
 						}
 					}
 				}
-				System.out.println("method");
 				int count = 0;
 				for ( Map< Method, Boolean > methodList : methodLists ) {
 					for ( Method method : methodList.keySet() ) {
 						boolean methodGet = methodList.get( method );
-						System.out.println(pPacket.isCancelled());
 						if ( !( pPacket.isCancelled() && methodGet ) || count == 5 ) {
 							try {
 								method.invoke( packetListener, pPacket );
