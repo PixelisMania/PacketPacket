@@ -13,7 +13,7 @@ public class AClass implements PacketListener {
 	}
 }
 
-// Class must implement "me.pixelmania.packetpacket.packet.PacketListener" as shown above.
+// Class must implement "dev.pixelmania.packetpacket.packet.PacketListener" as shown above.
 // priority and ignoreCancelled is optional for @ PacketHandler.
 // all the packet names are the same as Bukkit's but just add an extra "P" to the beginnning.
 // ( "PacketPlayInChat" - from Bukkit is "PPacketPlayInChat" - from PacketPacket )
