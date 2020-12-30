@@ -1,5 +1,6 @@
 package dev.pixelmania.packetpacket.handler;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -53,7 +54,16 @@ public class HandlingPipeline implements Listener {
 		try {
 			Object playerConnection = getPlayerConnection ( player );
 			Object networkManager = playerConnection.getClass().getField( "networkManager" ).get( playerConnection );
-			return ( Channel ) networkManager.getClass().getField( "channel" ).get( networkManager );
+			String channel = "channel";
+			String nms = PacketPacket.getServerNMS();
+			if ( nms.equals("v1_8_R1") ) {
+				channel = "i";
+			} else if ( nms.equals("v1_8_R2") ) {
+				channel = "k";
+			}
+			Field field = networkManager.getClass().getDeclaredField( channel );
+			field.setAccessible( true );
+			return ( Channel ) field.get( networkManager );
 		} catch ( Exception exception ) {
 			exception.printStackTrace();
 		}
