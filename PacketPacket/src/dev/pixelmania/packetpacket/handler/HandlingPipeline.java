@@ -33,12 +33,17 @@ public class HandlingPipeline implements Listener {
 	
 	public static Object getPlayerConnection(Player player) {
 		try {
-			String ver = PacketPacket.getServerNMS();
-			Class< ? > cls = ( Class< ? > ) Class.forName( "org.bukkit.craftbukkit." + ver + ".entity.CraftPlayer" );
+			String nms = PacketPacket.getServerNMS();
+			Class< ? > cls = ( Class< ? > ) Class.forName( "org.bukkit.craftbukkit." + nms + ".entity.CraftPlayer" );
 			Object casted = cls.cast( player );
-			Method method = casted.getClass().getMethod( "getHandle", new Class< ? >[] {} );
-			Object entityLiving = method.invoke( casted );
-			Object playerConnection = entityLiving.getClass().getField( "playerConnection" ).get( entityLiving );
+			Method method = casted.getClass().getMethod("getHandle");
+			Object entityPlayer = method.invoke( casted );
+			Object playerConnection = null;
+			if ( nms.equals("v1_17_R1") ) {
+				playerConnection = entityPlayer.getClass().getField("b").get( entityPlayer );
+			} else {
+				playerConnection = entityPlayer.getClass().getField( "playerConnection" ).get( entityPlayer );
+			}
 			return playerConnection;
 		} catch ( Exception exception ) {
 			exception.printStackTrace();
@@ -52,13 +57,18 @@ public class HandlingPipeline implements Listener {
 	
 	private static Channel getChannel(Player player) {
 		try {
-			Object playerConnection = getPlayerConnection ( player );
-			Object networkManager = playerConnection.getClass().getField( "networkManager" ).get( playerConnection );
-			String channel = "channel";
+			Object playerConnection = getPlayerConnection( player );
+			Object networkManager = null;
 			String nms = PacketPacket.getServerNMS();
+			if ( nms.equals("v1_17_R1") ) {
+				networkManager = playerConnection.getClass().getField("a").get( playerConnection );
+			} else {
+				networkManager = playerConnection.getClass().getField("networkManager").get( playerConnection );
+			}
+			String channel = "channel";
 			if ( nms.equals("v1_8_R1") ) {
 				channel = "i";
-			} else if ( nms.equals("v1_8_R2") ) {
+			} else if ( nms.equals("v1_8_R2") || nms.equals("v1_17_R1") ) {
 				channel = "k";
 			}
 			Field field = networkManager.getClass().getDeclaredField( channel );
@@ -119,6 +129,7 @@ public class HandlingPipeline implements Listener {
 			String[] className = packet.getClass().getName().toString().split("\\.");
 			String[] nested = className[ className.length - 1 ].split("\\$");
 			String packetName = "dev.pixelmania.packetpacket.packet.P" + nested[ nested.length - 1 ];
+			@ SuppressWarnings("deprecation")
 			PPacket pPacket = ( PPacket ) Class.forName( packetName ).newInstance();
 			pPacket.a( packet, player );
 			for ( PacketListener packetListener : pPacket.getPacketListeners() ) {

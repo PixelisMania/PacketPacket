@@ -16,13 +16,14 @@ public class PacketPacket {
 		return Core.plugin;
 	}
 	
+	@ SuppressWarnings("deprecation")
 	public static void registerPackets(PacketListener packetListenerClass, JavaPlugin javaPlugin) {
 		for ( Method method : packetListenerClass.getClass().getMethods() ) {
 			if ( method.getAnnotation( PacketHandler.class ) != null && method.getParameterCount() != 0 ) {
 				Class< ? > parameterType = method.getParameterTypes()[ 0 ];
 				try {
 					if ( parameterType.newInstance() instanceof PPacket ) {
-							@ SuppressWarnings("unchecked")
+							@ SuppressWarnings( { "unchecked" } )
 							PPacket pPacket = ( ( Class< PPacket > ) parameterType ).newInstance();
 							pPacket.register( packetListenerClass, javaPlugin );
 					}
@@ -36,7 +37,7 @@ public class PacketPacket {
 	public static void sendPacket(Player player, Object packet) {
 		try {
 			Object playerConnection = HandlingPipeline.getPlayerConnection( player );
-			Class< ? > pacCls = Class.forName("net.minecraft.server." + getServerNMS() + ".Packet");
+			Class< ? > pacCls = Class.forName( "net.minecraft.server." + getServerNMS() + ".Packet" );
 			playerConnection.getClass().getMethod( "sendPacket", pacCls ).invoke( playerConnection, packet );
 		} catch ( Exception exception ) {
 			exception.printStackTrace();

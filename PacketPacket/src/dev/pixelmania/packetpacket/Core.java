@@ -13,6 +13,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.ChannelPromise;
 
 public class Core extends JavaPlugin {
+	
 	protected static Core plugin;
 	
 	@ Override
@@ -73,4 +74,5 @@ public class Core extends JavaPlugin {
 			HandlingPipeline.closePipeline( player );
 		}
 	}
+	
 }
