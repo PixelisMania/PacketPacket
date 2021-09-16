@@ -1,0 +1,7 @@
+main: dev.pixelmania.packetpacket.Core
+name: PacketPacket
+version: 1.1b
+
+api-version: 1.13
+
+author: PixelMania
