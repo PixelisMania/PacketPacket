@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PPacketPlayOutEntity implements PPacket {
+	
 	private static Map< PacketListener, JavaPlugin > packetListeners = new HashMap< PacketListener, JavaPlugin >();
 	
 	public static PacketListener[] manualGetPacketListeners() {
@@ -68,4 +69,11 @@ public class PPacketPlayOutEntity implements PPacket {
 	public Object getRawPacket() {
 		return this.packet;
 	}
+	
+	public static class PacketPlayOutEntityLook extends PPacketPlayOutEntity {};
+	
+	public static class PacketPlayOutRelEntityMove extends PPacketPlayOutEntity {};
+	
+	public static class PacketPlayOutRelEntityMoveLook extends PPacketPlayOutEntity {};
+	
 }

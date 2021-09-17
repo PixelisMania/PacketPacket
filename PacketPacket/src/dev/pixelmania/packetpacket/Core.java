@@ -18,7 +18,6 @@ public class Core extends JavaPlugin {
 	
 	@ Override
 	public void onEnable() {
-		plugin = this;
 		if ( !Bukkit.getOnlinePlayers().isEmpty() ) {
 			HandlingPipeline handlingPipeline = new HandlingPipeline();
 			for ( Player player : Bukkit.getOnlinePlayers() ) {

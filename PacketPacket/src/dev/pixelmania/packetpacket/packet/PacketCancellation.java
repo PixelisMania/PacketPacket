@@ -1,6 +1,7 @@
 package dev.pixelmania.packetpacket.packet;
 
 public class PacketCancellation {
+	
 	private boolean isCancelled;
 	
 	public void setCancelled(boolean isCancelled) {
@@ -10,4 +11,5 @@ public class PacketCancellation {
 	public boolean isCancelled() {
 		return this.isCancelled;
 	}
+	
 }

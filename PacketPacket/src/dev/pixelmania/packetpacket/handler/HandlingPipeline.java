@@ -26,6 +26,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.ChannelPromise;
 
 public class HandlingPipeline implements Listener {
+	
 	@ EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		this.openPipeline( event.getPlayer() );
@@ -125,10 +126,11 @@ public class HandlingPipeline implements Listener {
 	}
 	
 	public void handlePacket(Object packet, String player, PacketCancellation packetCancellation) {
+		String[] className = packet.getClass().getName().toString().split("\\.");
+		String[] nested = className[ className.length - 1 ].split("\\$");
+		String packetName = "dev.pixelmania.packetpacket.packet.P" + ( className[ className.length - 1 ].contains("$") 
+				? nested[ nested.length - 2 ] + "$" + nested[ nested.length - 1 ] : nested[ nested.length - 1 ] );
 		try {
-			String[] className = packet.getClass().getName().toString().split("\\.");
-			String[] nested = className[ className.length - 1 ].split("\\$");
-			String packetName = "dev.pixelmania.packetpacket.packet.P" + nested[ nested.length - 1 ];
 			@ SuppressWarnings("deprecation")
 			PPacket pPacket = ( PPacket ) Class.forName( packetName ).newInstance();
 			pPacket.a( packet, player );
@@ -205,4 +207,5 @@ public class HandlingPipeline implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		closePipeline( event.getPlayer() );
 	}
+	
 }

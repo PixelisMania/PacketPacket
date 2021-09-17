@@ -8,7 +8,9 @@ import java.lang.annotation.Target;
 @ Retention( RetentionPolicy.RUNTIME )
 @ Target( { ElementType.METHOD } )
 public @ interface PacketHandler {
+	
 	PacketPriority priority() default PacketPriority.NORMAL;
 	
 	boolean ignoreCancelled() default false;
+	
 }

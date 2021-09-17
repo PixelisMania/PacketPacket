@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public interface PPacket {
+	
 	public void a(Object a, String b);
 	
 	public PacketListener[] getPacketListeners();
@@ -19,4 +20,5 @@ public interface PPacket {
 	public String getPlayerName();
 	
 	public Object getRawPacket();
+	
 }

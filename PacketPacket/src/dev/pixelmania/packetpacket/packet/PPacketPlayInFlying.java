@@ -68,4 +68,13 @@ public class PPacketPlayInFlying implements PPacket {
 	public Object getRawPacket() {
 		return this.packet;
 	}
+	
+	public static class d extends PPacketPlayInFlying {};
+	
+	public static class PacketPlayInLook extends PPacketPlayInFlying {};
+	
+	public static class PacketPlayInPosition extends PPacketPlayInFlying {};
+	
+	public static class PacketPlayInPositionLook extends PPacketPlayInFlying {};
+	
 }

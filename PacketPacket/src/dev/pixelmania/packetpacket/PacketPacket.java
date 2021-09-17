@@ -12,6 +12,7 @@ import dev.pixelmania.packetpacket.packet.PacketHandler;
 import dev.pixelmania.packetpacket.packet.PacketListener;
 
 public class PacketPacket {
+	
 	public static JavaPlugin getPlugin() {
 		return Core.plugin;
 	}
@@ -47,4 +48,5 @@ public class PacketPacket {
 	public static String getServerNMS() {
 		return Bukkit.getServer().getClass().getPackage().toString().split("\\.")[ 3 ].split(",")[ 0 ];
 	}
+	
 }
